@@ -6,16 +6,18 @@ import (
 	raiden_controllers "github.com/sev-2/raiden/pkg/controllers"
 	"github.com/valyala/fasthttp"
 	"mobile/internal/controllers"
+	"mobile/internal/models"
 )
 
 func RegisterRoute(server *raiden.Server) {
 	server.RegisterRoute([]*raiden.Route{
 		raiden.NewRouteFromController(&raiden_controllers.StateReadyController{}, []string{fasthttp.MethodPost}),
 		{
-			Type:       raiden.RouteTypeCustom,
-			Path:       "/hello",
-			Methods:    []string{fasthttp.MethodGet},
-			Controller: &controllers.HelloWorldController{},
+			Type:       raiden.RouteTypeRest,
+			Path:       "/dokter",
+			Methods:    []string{},
+			Controller: &controllers.ScheduleController{},
+			Model:      models.Dokter{},
 		},
 	})
 }
